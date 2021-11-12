@@ -1,8 +1,6 @@
 package br.com.zup.DesafioModulo05Conta.conta;
 
-import br.com.zup.DesafioModulo05Conta.dtos.ResumoContaDTO;
-import br.com.zup.DesafioModulo05Conta.dtos.ResumoEntradaDTO;
-import br.com.zup.DesafioModulo05Conta.dtos.ResumoSaidaDTO;
+import br.com.zup.DesafioModulo05Conta.dtos.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,5 +38,9 @@ public class ContaController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removerContaPorId(@PathVariable int id){
         contaService.removerContaPorId(id);
+    }
+    @PutMapping("/{id}")
+    public ContaDTO atualizarContas (@RequestBody ResumoStatusDTO resumoStatusDTO, @PathVariable int id){
+        return modelMapper.map(contaService.atualizarContaPorId(id, resumoStatusDTO.getStatus()), ContaDTO.class);
     }
 }
