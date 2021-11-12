@@ -28,15 +28,6 @@ public class ContaController {
         Conta conta = modelMapper.map(resumoEntradaDTO, Conta.class);
         return modelMapper.map(contaService.salvarConta(conta), ResumoSaidaDTO.class);
     }
-    @GetMapping
-    public List<ResumoContaDTO> exibirTodasContas(){
-        List<ResumoContaDTO> contasDTO = new ArrayList<>();
-        for (Conta contas : contaService.exibirTodasContas()){
-            ResumoContaDTO resumoContaDTO = modelMapper.map(contas, ResumoContaDTO.class);
-            contasDTO.add(resumoContaDTO);
-        }
-        return contasDTO;
-    }
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void removerContaPorId(@PathVariable int id){
@@ -45,5 +36,16 @@ public class ContaController {
     @PutMapping("/{id}")
     public ContaDTO atualizarContas (@RequestBody ResumoStatusDTO resumoStatusDTO, @PathVariable int id){
         return modelMapper.map(contaService.atualizarContaPorId(id, resumoStatusDTO.getStatus()), ContaDTO.class);
+    }
+    @GetMapping
+    public List<ResumoContaDTO> exibirListaDeContas(@RequestParam(required = false) Status status,
+                                                    @RequestParam(required = false) Tipo tipo,
+                                                    @RequestParam(required = false) Double valor){
+        List<ResumoContaDTO> resumoDTOS = new ArrayList<>();
+        for (Conta contas : contaService.exibitListaDeContas(status, tipo, valor)){
+            ResumoContaDTO resumo = modelMapper.map(contas, ResumoContaDTO.class);
+            resumoDTOS.add(resumo);
+        }
+        return resumoDTOS;
     }
 }

@@ -60,16 +60,18 @@ public class ContaService {
             contaRepository.save(conta);
         }
     }
-    public List<Conta> exibirContasPorStatus(Status status){
-        Iterable<Conta> contas = contaRepository.findAllByStatus(status);
-        return (List<Conta>) contas;
-    }
-    public List<Conta> exibirContasPorTipo(Tipo tipo){
-        Iterable<Conta> contas = contaRepository.findAllByTipo(tipo);
-        return (List<Conta>) contas;
-    }
-    public List<Conta> exibirContasPorValorAproximado(Double valor){
-        Iterable<Conta> contas = contaRepository.findAllByValorAproximado(valor);
+    public List<Conta> exibitListaDeContas(Status status, Tipo tipo, Double valor) {
+        if(status != null){
+            return contaRepository.findAllByStatus(status);
+        }
+        if(tipo != null){
+            return contaRepository.findAllByTipo(tipo);
+        }
+        if(valor != null){
+            return contaRepository.findAllByValorAproximado(valor);
+        }
+
+        Iterable<Conta> contas = contaRepository.findAll();
         return (List<Conta>) contas;
     }
 

@@ -15,7 +15,6 @@ public class ResumoContaDTO {
 
     public ResumoContaDTO() {
     }
-
     public String getNome() {
         return nome;
     }
