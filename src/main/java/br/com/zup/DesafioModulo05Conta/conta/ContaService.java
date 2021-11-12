@@ -7,4 +7,9 @@ import org.springframework.stereotype.Service;
 public class ContaService {
     @Autowired
     private ContaRepository contaRepository;
+
+    public Conta salvarConta (Conta conta){
+
+        return contaRepository.save(conta);
+    }
 }
