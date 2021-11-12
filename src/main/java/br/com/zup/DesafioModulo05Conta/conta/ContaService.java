@@ -1,6 +1,7 @@
 package br.com.zup.DesafioModulo05Conta.conta;
 
 import br.com.zup.DesafioModulo05Conta.enums.Status;
+import br.com.zup.DesafioModulo05Conta.exceptions.ContaExistenteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,7 +39,7 @@ public class ContaService {
     public Conta localizarContaPorId(int id){
         Optional<Conta> contaLocalizada = contaRepository.findById(id);
         if (contaLocalizada.isEmpty()){
-            throw new RuntimeException("ID não localizado.");
+            throw new ContaExistenteException("ID não localizado.");
         }
         return contaLocalizada.get();
     }
