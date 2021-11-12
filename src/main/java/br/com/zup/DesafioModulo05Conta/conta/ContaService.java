@@ -18,4 +18,17 @@ public class ContaService {
         List<Conta> contas = (List<Conta>) contaRepository.findAll();
         return contas;
     }
+    public void removerContaPorId (int id){
+        boolean contaASerRemovida = false;
+        Conta contaRemovida = null;
+        for (Conta conta : contaRepository.findAll()){
+            if (conta.getId() == id){
+                contaASerRemovida = true;
+                contaRemovida = conta;
+            }
+        }
+        if (contaASerRemovida){
+            contaRepository.delete(contaRemovida);
+        }
+    }
 }
