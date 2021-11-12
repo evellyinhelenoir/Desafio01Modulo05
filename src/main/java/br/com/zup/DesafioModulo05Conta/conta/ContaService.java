@@ -1,6 +1,7 @@
 package br.com.zup.DesafioModulo05Conta.conta;
 
 import br.com.zup.DesafioModulo05Conta.enums.Status;
+import br.com.zup.DesafioModulo05Conta.enums.Tipo;
 import br.com.zup.DesafioModulo05Conta.exceptions.ContaNaoEncontrada;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,4 +60,17 @@ public class ContaService {
             contaRepository.save(conta);
         }
     }
+    public List<Conta> exibirContasPorStatus(Status status){
+        Iterable<Conta> contas = contaRepository.findAllByStatus(status);
+        return (List<Conta>) contas;
+    }
+    public List<Conta> exibirContasPorTipo(Tipo tipo){
+        Iterable<Conta> contas = contaRepository.findAllByTipo(tipo);
+        return (List<Conta>) contas;
+    }
+    public List<Conta> exibirContasPorValorAproximado(Double valor){
+        Iterable<Conta> contas = contaRepository.findAllByValorAproximado(valor);
+        return (List<Conta>) contas;
+    }
+
 }
