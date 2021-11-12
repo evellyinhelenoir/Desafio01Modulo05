@@ -36,4 +36,9 @@ public class ContaController {
         }
         return contasDTO;
     }
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void removerContaPorId(@PathVariable int id){
+        contaService.removerContaPorId(id);
+    }
 }
