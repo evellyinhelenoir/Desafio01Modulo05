@@ -45,11 +45,12 @@ public class ContaService {
         return contaLocalizada.get();
     }
     public Conta atualizarContaPorId(int id, Status status){
-        Conta conta = localizarContaPorId(id);
+        Optional <Conta> conta = localizarContaPorId(id){
         conta.setDataPagamento(LocalDateTime.now());
         conta.setStatus(status);
         contaRepository.save(conta);
         return conta;
+
     }
     public void verificarVencimento(Conta conta){
         if (conta.getDataVencimento().isBefore(LocalDate.now())){
