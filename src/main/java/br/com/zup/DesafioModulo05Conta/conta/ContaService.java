@@ -1,8 +1,10 @@
 package br.com.zup.DesafioModulo05Conta.conta;
 
+import br.com.zup.DesafioModulo05Conta.enums.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,5 +40,12 @@ public class ContaService {
             throw new RuntimeException("ID não localizado.");
         }
         return contaLocalizada.get();
+    }
+    public Conta atualizarContaPorId(int id, Status status){
+        Conta conta = localizarContaPorId(id);
+        conta.setDataPagamento(LocalDateTime.now());
+        conta.setStatus(status);
+        contaRepository.save(conta);
+        return conta;
     }
 }
