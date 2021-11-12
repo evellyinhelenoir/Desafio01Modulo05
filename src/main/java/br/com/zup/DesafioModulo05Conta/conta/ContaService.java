@@ -4,6 +4,7 @@ import br.com.zup.DesafioModulo05Conta.enums.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -14,7 +15,7 @@ public class ContaService {
     private ContaRepository contaRepository;
 
     public Conta salvarConta (Conta conta){
-
+        verificarVencimento(conta);
         return contaRepository.save(conta);
     }
     public List<Conta> exibirTodasContas(){
@@ -47,5 +48,14 @@ public class ContaService {
         conta.setStatus(status);
         contaRepository.save(conta);
         return conta;
+    }
+    public void verificarVencimento(Conta conta){
+        if (conta.getDataVencimento().isBefore(LocalDate.now())){
+            conta.setStatus(Status.VENCIDA);
+            contaRepository.save(conta);
+        }else {
+            conta.setStatus(Status.AGUARDANDO);
+            contaRepository.save(conta);
+        }
     }
 }
