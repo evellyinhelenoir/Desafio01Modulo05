@@ -3,10 +3,14 @@ package br.com.zup.DesafioModulo05Conta.dtos;
 import br.com.zup.DesafioModulo05Conta.enums.Status;
 import br.com.zup.DesafioModulo05Conta.enums.Tipo;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class ResumoSaidaDTO {
+
     private String nome;
     private double valor;
     private Tipo tipo;

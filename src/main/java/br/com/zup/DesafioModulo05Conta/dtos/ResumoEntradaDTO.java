@@ -2,12 +2,20 @@ package br.com.zup.DesafioModulo05Conta.dtos;
 
 import br.com.zup.DesafioModulo05Conta.enums.Tipo;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class ResumoEntradaDTO {
+    @NotBlank
     private String nome;
+    @NotNull
+    @DecimalMin(value = "0.01")
     private double valor;
+    @NotNull
     private Tipo tipo;
+    @NotNull
     private LocalDate dataVencimento;
 
     public ResumoEntradaDTO(String nome, double valor, Tipo tipo, LocalDate dataVencimento) {
