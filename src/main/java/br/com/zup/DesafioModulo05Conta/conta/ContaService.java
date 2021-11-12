@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ContaService {
@@ -30,5 +31,12 @@ public class ContaService {
         if (contaASerRemovida){
             contaRepository.delete(contaRemovida);
         }
+    }
+    public Conta localizarContaPorId(int id){
+        Optional<Conta> contaLocalizada = contaRepository.findById(id);
+        if (contaLocalizada.isEmpty()){
+            throw new RuntimeException("ID não localizado.");
+        }
+        return contaLocalizada.get();
     }
 }
