@@ -2,7 +2,7 @@ package br.com.zup.DesafioModulo05Conta.conta;
 
 import br.com.zup.DesafioModulo05Conta.enums.Status;
 import br.com.zup.DesafioModulo05Conta.enums.Tipo;
-import br.com.zup.DesafioModulo05Conta.exceptions.ContaNaoEncontrada;
+import br.com.zup.DesafioModulo05Conta.exceptions.ContaNaoEncontradaException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,17 +40,16 @@ public class ContaService {
     public Conta localizarContaPorId(int id){
         Optional<Conta> contaLocalizada = contaRepository.findById(id);
         if (contaLocalizada.isEmpty()){
-            throw new ContaNaoEncontrada("Conta nao encontrada.");
+            throw new ContaNaoEncontradaException("Conta nao encontrada.");
         }
         return contaLocalizada.get();
     }
     public Conta atualizarContaPorId(int id, Status status){
-        Optional <Conta> conta = localizarContaPorId(id){
-        conta.setDataPagamento(LocalDateTime.now());
-        conta.setStatus(status);
-        contaRepository.save(conta);
-        return conta;
-
+            Conta conta = localizarContaPorId(id);
+            conta.setDataPagamento(LocalDateTime.now());
+            conta.setStatus(status);
+            contaRepository.save(conta);
+            return conta;
     }
     public void verificarVencimento(Conta conta){
         if (conta.getDataVencimento().isBefore(LocalDate.now())){

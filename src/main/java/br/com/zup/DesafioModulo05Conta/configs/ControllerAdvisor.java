@@ -1,6 +1,6 @@
 package br.com.zup.DesafioModulo05Conta.configs;
 
-import br.com.zup.DesafioModulo05Conta.exceptions.ContaNaoEncontrada;
+import br.com.zup.DesafioModulo05Conta.exceptions.ContaNaoEncontradaException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -24,9 +24,9 @@ public class ControllerAdvisor {
         }
         return erros;
     }
-    @ExceptionHandler(ContaNaoEncontrada.class)
+    @ExceptionHandler(ContaNaoEncontradaException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public MensagemErro manipularContaNaoEncontrada(ContaNaoEncontrada exception){
+    public MensagemErro manipularContaNaoEncontrada(ContaNaoEncontradaException exception){
         return new MensagemErro(exception.getMessage());
     }
     @ExceptionHandler(HttpMessageNotReadableException.class)

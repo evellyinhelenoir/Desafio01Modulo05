@@ -3,6 +3,7 @@ package br.com.zup.DesafioModulo05Conta.conta;
 import br.com.zup.DesafioModulo05Conta.dtos.*;
 import br.com.zup.DesafioModulo05Conta.enums.Status;
 import br.com.zup.DesafioModulo05Conta.enums.Tipo;
+import br.com.zup.DesafioModulo05Conta.exceptions.StatusInvalidoException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,7 +36,10 @@ public class ContaController {
     }
     @PutMapping("/{id}")
     public ContaDTO atualizarContas (@RequestBody ResumoStatusDTO resumoStatusDTO, @PathVariable int id){
-        return modelMapper.map(contaService.atualizarContaPorId(id, resumoStatusDTO.getStatus()), ContaDTO.class);
+        if (resumoStatusDTO.getStatus().equals(Status.PAGO)){
+            return modelMapper.map(contaService.atualizarContaPorId(id, resumoStatusDTO.getStatus()), ContaDTO.class);
+        }
+        throw new StatusInvalidoException("Status inválido.");
     }
     @GetMapping
     public List<ResumoContaDTO> exibirListaDeContas(@RequestParam(required = false) Status status,
